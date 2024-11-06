@@ -28,7 +28,7 @@ object rolando {
     }
 
     method todosSusArtefactos() {
-        return artefactos ++ castillo.artefactosGuardados()
+        return artefactos.union(castillo.artefactosGuardados())
     }
 
     method tiene(artefacto){

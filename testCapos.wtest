@@ -21,7 +21,7 @@ describe "Rolando" {
         rolando.encontrar(collarDivino)
         rolando.llegarA(castillo)
         assert.that(rolando.artefactos().isEmpty())
-        assert.equals([ espada, libroDeHechizos, collarDivino ], castillo.artefactosGuardados())
+        assert.equals({ espada, libroDeHechizos, collarDivino }, castillo.artefactosGuardados())
         assert.that(rolando.artefactos().isEmpty())
     }
 
