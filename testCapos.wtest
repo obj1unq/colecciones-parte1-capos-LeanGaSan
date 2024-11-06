@@ -1,1 +1,51 @@
-r
+import capos.*
+
+describe "Rolando" {
+
+    const espada = new Artefacto()
+    const libroDeHechizos = new Artefacto()
+    const collarDivino = new Artefacto()
+    const armadura = new Artefacto()
+
+    test "Ejemplo 1" {
+        rolando.encontrar(espada)
+        rolando.encontrar(libroDeHechizos)
+        rolando.encontrar(collarDivino)
+        assert.equals({ espada, libroDeHechizos }, rolando.artefactos())
+    }
+
+    test "Ejemplo 2" {
+        rolando.encontrar(espada)
+        rolando.encontrar(libroDeHechizos)
+        rolando.llegarA(castillo)
+        rolando.encontrar(collarDivino)
+        rolando.llegarA(castillo)
+        assert.that(rolando.artefactos().isEmpty())
+        assert.equals({ espada, libroDeHechizos, collarDivino }, castillo.artefactosGuardados())
+        assert.that(rolando.artefactos().isEmpty())
+    }
+
+    test "Ejempleo 3" {
+        // 1. Rolando encuentra la espada del destino (la agarra)
+        rolando.encontrar(espada)
+        assert.that(rolando.tiene(espada))
+        // 2. rolando encuentra el libro de hechizos (la agarra)
+        rolando.encontrar(libroDeHechizos)
+        assert.that(rolando.tiene(libroDeHechizos))
+        // 3. rolando encuentra el collar divino (no lo agarra, ya que tiene la espada y el libro encima y su capacidad es de 2)
+        rolando.encontrar(collarDivino)
+        assert.notThat(rolando.tiene(collarDivino))
+        // 4. rolando llega al castillo de piedra (deja en el castillo la espada y el libro de hechizos)
+        rolando.llegarA(castillo)
+        assert.that(rolando.artefactos().isEmpty())
+        // 5. rolando encuentra la armadura de acero valyrio (la agarra)
+        rolando.encontrar(armadura)
+        assert.that(rolando.tiene(armadura))
+        // 6. rolando encuentra el collar divino (ahora si lo puede agarrar, ya que liberó espacio)
+        rolando.encontrar(collarDivino)
+        assert.that(rolando.tiene(collarDivino))
+
+        // Historial de artefactos encontrados 
+        assert.equals([espada, libroDeHechizos, collarDivino, armadura, collarDivino], rolando.historialEncontrados())
+    }
+}
